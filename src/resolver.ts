@@ -223,6 +223,14 @@ function resolveGrid(
   return { placed: [...placed, ...bottomPlaced], dropped };
 }
 
+/** Exposes the same flow classification the resolver uses internally, for UI/debug display. */
+export function describeFlow(surfaceInput: SurfaceProfile): Flow {
+  const surface = withDefaults(surfaceInput);
+  const w = surfaceInput.width - surface.safeArea.left - surface.safeArea.right;
+  const h = surfaceInput.height - surface.safeArea.top - surface.safeArea.bottom;
+  return classifyFlow(w, h);
+}
+
 export function resolveLayout(spec: AdSpec, surfaceInput: SurfaceProfile): ResolvedLayout {
   const surface = withDefaults(surfaceInput);
   const area = {
