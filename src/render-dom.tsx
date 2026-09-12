@@ -4,6 +4,7 @@
 // renderer and resolver.ts would not need to change.
 // ---------------------------------------------------------------------------
 
+import { useState } from "react";
 import type { AdSpec } from "./spec";
 import type { ResolvedLayout } from "./resolver";
 
@@ -67,6 +68,21 @@ function HeroPlaceholder({ width, height }: { width: number; height: number }) {
   );
 }
 
+function Hero({ imageUrl, width, height }: { imageUrl?: string; width: number; height: number }) {
+  const [failed, setFailed] = useState(false);
+  if (imageUrl && !failed) {
+    return (
+      <img
+        src={imageUrl}
+        alt="Product"
+        onError={() => setFailed(true)}
+        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+      />
+    );
+  }
+  return <HeroPlaceholder width={width} height={height} />;
+}
+
 export function RenderDom({ spec, layout }: { spec: AdSpec; layout: ResolvedLayout }) {
   const contentById = Object.fromEntries(spec.elements.map((e) => [e.id, e]));
 
@@ -103,7 +119,7 @@ export function RenderDom({ spec, layout }: { spec: AdSpec; layout: ResolvedLayo
               title={`${el.id} (${el.role})`}
             >
               {el.role === "hero" ? (
-                <HeroPlaceholder width={el.width} height={el.height} />
+                <Hero imageUrl={el0?.content} width={el.width} height={el.height} />
               ) : (
                 el0?.content ?? el.id
               )}
