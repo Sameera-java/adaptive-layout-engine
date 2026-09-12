@@ -8,7 +8,7 @@ import { RenderDom } from "./render-dom";
 const adSpec = defineAd({
   elements: [
     { id: "headline", type: "text", role: "primary", priority: 1, content: "Summer Sale — 40% Off" },
-    { id: "product-image", type: "image", role: "hero", priority: 1, content: "/product.jpg" },
+    { id: "product-image", type: "image", role: "hero", priority: 1, content: "/product.svg" },
     { id: "cta", type: "button", role: "action", priority: 2, content: "Shop Now" },
     { id: "price", type: "text", role: "secondary", priority: 2, content: "$29.99" },
     { id: "logo", type: "image", role: "branding", priority: 3, content: "LOGO" },
